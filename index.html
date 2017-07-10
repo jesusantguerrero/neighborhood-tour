@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Neighborhood Tour Application</title>
+  <link rel="stylesheet" href="./assets/css/main.css">
+  <link href='https:fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
+</head>
+
+<body>
+
+  <header id="header">
+    <div class="menu"><i class="material-icons" @click="toggleMenu">menu</i></div>
+    <div class="brand">Neighborhood Tour Api</div>
+    <div class="menu">menu</div>
+
+  </header>
+  <div id="map" @load="init"></div>
+  <div id="place-name">{{place}}</div>
+
+  <ul id="location-list" v-bind:class="visible ? 'visible' : ''">
+    <li v-for="location in locations">
+      <div class="location-image"><i class="material-icons">location_on</i></div>
+      <h2 class="location-name">{{location.name}}</h2>
+    </li>
+  </ul>
+
+  <div id="search-info" class="search-info">
+    <button>Other</button>
+    <button>Other</button>
+    <select name="" id="select-search">
+      <li>{{Location.name}}</li>
+    </select>
+    
+    <button type="button" class="btn btn-large btn-block btn-default"><i class="material-icons">burst_mode</i></button>
+    <button><i class="material-icons">info_outline</i></button>
+  </div>
+
+  <footer>
+    <div class="menu">Menu</div>
+    <div class="footer-section">Neighborhood Tour Api</div>
+    <div class="menu">Footer</div>
+  </footer>
+
+  <script src="./assets/js/lib/vue.min.js"></script>
+  <script src="./assets/js/helper.js"></script>
+  <script src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
+  <script src="./assets/js/app.js"></script>
+</body>
+
+</html>

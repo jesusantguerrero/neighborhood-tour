@@ -1,0 +1,135 @@
+=makeFlex($width,$direction,$justify,$align)
+  display: flex
+  width: $width
+  flex-direction: $direction
+  justify-content: $justify
+  align-items: $align
+
+$primary-color: tomato
+
+@import _components
+*
+  padding: 0
+  margin: 0
+  box-sizing: border-box
+
+body
+  overflow: hidden
+  font-family: 'Roboto', sans-serif
+  color: #555
+
+header,
+footer
+  height: 70px
+  padding: 0 100px
+  position: fixed
+  background: #fff
+  width: 100%
+  display: flex
+  z-index: 100
+  box-shadow: 2px 5px 5px rgba(0,0,0,0.2)
+
+  .menu,
+  .brand,
+  .footer-section
+    +makeFlex(33.3%, row,center,center)
+    text-align: center
+  .brand
+    font:
+      size: 30px
+      weight: bolder
+    color: $primary-color
+  .menu
+    justify-content: flex-start
+    i
+      cursor: pointer
+      font-size: 30px
+
+.search-info
+  +makeFlex(100%,row,center,center)
+  height: 48px
+  background: transparent
+  position: fixed
+  top: 100px
+  opacity: .5
+  &:hover
+    opacity: 1
+  button,
+  select
+    width: 100px
+    height: 48px
+    background: $primary-color
+    color: #fff
+
+  select 
+    width: 300px
+
+#map
+  height: 100vh
+  width: 100vw
+  background: grey
+
+#location-list
+  top: 0
+  padding: 100px
+  background: transparentize(#fff,.2)
+  z-index: 90
+  position: absolute
+  height: 100vh
+  +makeFlex(100vw,column,center,center)
+  visibility: hidden
+  animation: out-menu .5s
+
+  li
+    +makeFlex(100%,row,center,center)
+    cursor: pointer
+    margin: 10px
+    padding: 10px 5px
+    border-radius: 2px
+    transition: all ease .3s
+    
+    &:hover
+      background: $primary-color
+      color: #fff
+
+  .location-image
+    width: 20%
+  .location-name
+    width: 80%
+  .material-icons
+    font-size: 70px
+  &.visible
+    visibility: visible
+    animation: enter-menu .5s
+
+footer
+  height: 30px
+  bottom: 0
+  left: 0
+  background: tomato
+  color: #fff
+
+.footer-section
+  font-weight: bolder
+
+
+
+@keyframes enter-menu
+  0%
+    opacity: 0
+    left: 100%
+  60%
+    opacity: 1
+  100%
+    left: 0
+
+@keyframes out-menu
+  0%
+    opacity: 1
+    left: 0
+    visibility: visible
+  100%
+    opacity: 0
+    left: 100%
+  101%
+    visibility: hidden
