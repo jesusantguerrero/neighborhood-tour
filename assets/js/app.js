@@ -46,7 +46,7 @@ const mymap = new Vue({
   },
   methods:{
     init: function(){
-      initMap(this.place)
+      mainMap.init()
     }
   }
 });

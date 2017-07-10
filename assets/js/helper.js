@@ -1,39 +1,49 @@
+var template = '<div class="imformation Window"><h2>%title%<h2></di>'
 
-var markers = []
+const placeholders = {
+  title: '%title%'
+}
 
-function initMap(newPlace) {
-  // Create a map object and specify the DOM element for display.
-  var map = new google.maps.Map(document.getElementById('map'), {
-    // center: {lat: -34.397, lng: 150.644},
-    scrollwheel: true,
-    zoom: 8
-  });
+const mainMap = {
+  init() {
+    this.map = new google.maps.Map(document.getElementById('map'), {
+      scrollwheel: true,
+      zoom: 8
+    });
+    this.service = new google.maps.places.PlacesService(this.map);
+    this.markers = []
+    this.infoWindows = []
+    window.mapBounds = new google.maps.LatLngBounds();
 
-  function callback(results,status){
-    console.log(results[0])
-    setMarker(results[0])
-  }
+    places.forEach(function (place) {
+      mainMap.searchPlace(place)
+    }, this);
+  },
 
-  function setMarker(place){
+  callback(results, status) {
+    mainMap.setMarker(results[0])
+  },
+
+  setMarker(place) {
+    var self = this
     var newLocation = {
       lat: place.geometry.location.lat(),
-      lng : place.geometry.location.lng(),
+      lng: place.geometry.location.lng(),
       icon: place.icon,
       name: place.formatted_address,
       pictures: []
     }
-
     var photos = place.photos
     var bounds = window.mapBounds
 
-    if(photos !== undefined){
-      photos.forEach(function(object) {
-          newLocation.pictures.push(object.getUrl)
+    if (photos !== undefined) {
+      photos.forEach(function (object) {
+        newLocation.pictures.push(object.getUrl)
       }, this);
     }
 
     //  Information window
-    var contentString = '<div class="imformation Window"><h2>Hola mundo<h2></di>'
+    var contentString = template.replace(placeholders.title, 'Hola Mundo')
     var informationWindow = new google.maps.InfoWindow({
       content: contentString
     })
@@ -41,41 +51,39 @@ function initMap(newPlace) {
     locationView.locations.push(newLocation)
 
     //  the markers
-
     var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
     var marker = new google.maps.Marker({
       icon: image,
-      map: map,
+      map: self.map,
       position: place.geometry.location,
       title: newLocation.name,
       animation: google.maps.Animation.BOUNCE
     });
 
-    marker.addListener('click',function(){
-      informationWindow.open(map,marker);
+    marker.addListener('click', function () {
+      informationWindow.open(self.map, marker);
     })
 
-    markers.push(marker);
+    self.markers.push(marker);
 
     bounds.extend(new google.maps.LatLng(newLocation.lat, newLocation.lng));
     // fit the map to the new marker
-    map.fitBounds(bounds);
+    self.map.fitBounds(bounds);
     // center the map
-    map.setCenter(bounds.getCenter());
+    this.map.setCenter(bounds.getCenter());
 
+  },
+
+  searchPlace(place) {
+    this.service.textSearch({
+      query: place
+    }, this.callback)
+  },
+
+  stopMarkers() {
+    this.markers.forEach(function (marker) {
+      marker.setAnimation(google.maps.Animation.DROP)
+    })
   }
-  
-  window.mapBounds = new google.maps.LatLngBounds();
-  console.log(newPlace)
-  var service = new google.maps.places.PlacesService(map);
-  places.forEach(function(place) {
-    service.textSearch({query: place},callback)
-  }, this);
-  
-}
 
-function stopMarkers(){
-  markers.forEach(function(marker){
-    marker.setAnimation(google.maps.Animation.DROP)
-  })
 }
