@@ -14,7 +14,7 @@
 
   <header id="header">
     <div class="menu"><i class="material-icons" @click="toggleMenu">menu</i></div>
-    <div class="brand">Neighborhood Tour Api</div>
+    <div class="brand">Neighborhood Tour Application</div>
     <div class="menu">menu</div>
 
   </header>
@@ -31,8 +31,8 @@
   <div id="search-info" class="search-info">
     <button>Other</button>
     <button>Other</button>
-    <select name="" id="select-search">
-      <li>{{Location.name}}</li>
+    <select name="" id="select-search" @change="showElement">
+      <option v-bind:data-lat="location.lat" v-bind:data-lng="location.lng" v-for="location in locations"> {{location.name}} </option>
     </select>
     
     <button type="button" class="btn btn-large btn-block btn-default"><i class="material-icons">burst_mode</i></button>
@@ -40,11 +40,15 @@
   </div>
 
   <footer>
-    <div class="menu">Menu</div>
+    <div class="menu"><small>Powered by Google Maps API</small></div>
     <div class="footer-section">Neighborhood Tour Api</div>
-    <div class="menu">Footer</div>
+    <div class="menu"><small>Code and design By Jesus Guerrero</small></div>
   </footer>
 
+  <script
+  src="http://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
   <script src="./assets/js/lib/vue.min.js"></script>
   <script src="./assets/js/helper.js"></script>
   <script src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>

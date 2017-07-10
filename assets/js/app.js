@@ -1,4 +1,4 @@
-const places = ["La Romana, Repubica Dominicana","Vila Verde, La Romana, Republica Dominicana","Romana Del Oeste, La Romana, Republica Dominicana"]
+const places = ["Sillicon Valley, California, USA","Vila Verde, La Romana, Republica Dominicana","Romana Del Oeste, La Romana, Republica Dominicana"]
 const locations = []
 
 
@@ -15,10 +15,22 @@ const header = new Vue({
   }
 });
 
-const placename = new Vue({
-  el: '#place-name',
+const selectView = new Vue({
+  el: '#search-info',
   data: {
-    place: places[0]
+    places: places,
+    locations: locations
+  },
+  methods:{
+    showElement: function(){
+      var el = $('#select-search').find('option:checked')
+      var lat = el.attr('data-lat')
+      var lng = el.attr('data-lng')
+      selectView.setMapCenter({lat: Number(lat),lng: Number(lng)},true)
+    },
+    setMapCenter: function(coords,zoom){
+      mymap.setCenter(coords,zoom)
+    }
   }
 });
 
@@ -39,14 +51,17 @@ const locationView = new Vue({
 const mymap = new Vue({
   el: '#map',
   data: {
-    place: places[1]
+    places: places
   },
   mounted: function(){
-    this.init()
+    this.init(this.places)
   },
   methods:{
-    init: function(){
-      mainMap.init()
+    init: function(places){
+      mainMap.init(places)
+    },
+    setCenter: function(coords,zoom){
+      mainMap.setCenter(coords,zoom)
     }
   }
 });

@@ -1,8 +1,30 @@
+button,
+select
+  width: 100px
+  height: 48px
+  background: $primary-color
+  color: #fff
+  text-align: center
+  &:hover,
+  &:active,
+  &:focus
+    outline: none
+select 
+  width: 300px
+  background: white
+  border: 2px solid $primary-color
+  color: $primary-color
+  option
+    height: 48px
+
 button
   border: none
   margin: 0 5px
+  cursor: pointer
+  transition: all ease .3s
 
+  &:hover
+    background: darken($primary-color,15%)
 
-select
-  width: 300px
+ 
   

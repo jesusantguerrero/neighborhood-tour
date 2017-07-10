@@ -5,7 +5,7 @@ const placeholders = {
 }
 
 const mainMap = {
-  init() {
+  init(places) {
     this.map = new google.maps.Map(document.getElementById('map'), {
       scrollwheel: true,
       zoom: 8
@@ -48,10 +48,11 @@ const mainMap = {
       content: contentString
     })
 
+    // this array is from the app.js
     locationView.locations.push(newLocation)
 
     //  the markers
-    var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+    var image = './assets/img/map-marker.png'
     var marker = new google.maps.Marker({
       icon: image,
       map: self.map,
@@ -70,7 +71,7 @@ const mainMap = {
     // fit the map to the new marker
     self.map.fitBounds(bounds);
     // center the map
-    this.map.setCenter(bounds.getCenter());
+    mymap.setCenter(bounds.getCenter());
 
   },
 
@@ -84,6 +85,11 @@ const mainMap = {
     this.markers.forEach(function (marker) {
       marker.setAnimation(google.maps.Animation.DROP)
     })
+  },
+
+  setCenter(coords,is_zoom){
+    this.map.setCenter(coords);
+    if(is_zoom) this.map.setZoom(15);
   }
 
 }

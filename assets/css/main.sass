@@ -8,6 +8,7 @@
 $primary-color: tomato
 
 @import _components
+
 *
   padding: 0
   margin: 0
@@ -35,10 +36,12 @@ footer
     +makeFlex(33.3%, row,center,center)
     text-align: center
   .brand
+    width: 100%
     font:
       size: 30px
       weight: bolder
     color: $primary-color
+    cursor: pointer
   .menu
     justify-content: flex-start
     i
@@ -54,15 +57,6 @@ footer
   opacity: .5
   &:hover
     opacity: 1
-  button,
-  select
-    width: 100px
-    height: 48px
-    background: $primary-color
-    color: #fff
-
-  select 
-    width: 300px
 
 #map
   height: 100vh
