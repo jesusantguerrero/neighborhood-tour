@@ -21,12 +21,21 @@ const selectView = new Vue({
     places: places,
     locations: locations
   },
+  mounted: function(){
+    var select = $("#select-search").select2();
+    select.on('select2:select',function(e){
+      var attributes = e.params.data.element.attributes
+      var lat = attributes.getNamedItem('data-lat').value
+      var lng = attributes.getNamedItem('data-lng').value
+      selectView.setMapCenter({lat: Number(lat),lng: Number(lng)},true)
+    })
+
+    // var option = document.createElement('option')
+    // option.attributes.getNamedItem('data-lat').val
+  },
   methods:{
     showElement: function(){
-      var el = $('#select-search').find('option:checked')
-      var lat = el.attr('data-lat')
-      var lng = el.attr('data-lng')
-      selectView.setMapCenter({lat: Number(lat),lng: Number(lng)},true)
+   
     },
     setMapCenter: function(coords,zoom){
       mymap.setCenter(coords,zoom)

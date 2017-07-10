@@ -88,7 +88,7 @@ const mainMap = {
   },
 
   setCenter(coords,is_zoom){
-    this.map.setCenter(coords);
+    this.map.panTo(coords);
     if(is_zoom) this.map.setZoom(15);
   }
 
