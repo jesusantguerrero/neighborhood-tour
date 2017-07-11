@@ -1,6 +1,9 @@
-const places = ["Sillicon Valley, California, USA","Vila Verde, La Romana, Republica Dominicana","Romana Del Oeste, La Romana, Republica Dominicana"]
-const locations = []
-
+const collection = {
+  currentPlace: {},
+  places: ["Eiffel Tower","Big Ben","Google, Mountain View","Yankee Stadium","Wembley","Great Cayon"],
+  locations: [],
+  streetView: false
+}
 
 
 const header = new Vue({
@@ -18,8 +21,8 @@ const header = new Vue({
 const selectView = new Vue({
   el: '#search-info',
   data: {
-    places: places,
-    locations: locations
+    places: collection.places,
+    locations: collection.locations
   },
   mounted: function(){
     var select = $("#select-search").select2();
@@ -27,11 +30,10 @@ const selectView = new Vue({
       var attributes = e.params.data.element.attributes
       var lat = attributes.getNamedItem('data-lat').value
       var lng = attributes.getNamedItem('data-lng').value
-      selectView.setMapCenter({lat: Number(lat),lng: Number(lng)},true)
+      collection.currentPlace = {lat: Number(lat),lng: Number(lng)}
+      selectView.setMapCenter(collection.currentPlace,true)
+      if(collection.streetView) mainMap.setStreetView(collection.currentPlace)
     })
-
-    // var option = document.createElement('option')
-    // option.attributes.getNamedItem('data-lat').val
   },
   methods:{
     showElement: function(){
@@ -39,14 +41,27 @@ const selectView = new Vue({
     },
     setMapCenter: function(coords,zoom){
       mymap.setCenter(coords,zoom)
+    },
+
+    toggleStreetView: function(){
+
+      if(!collection.streetView){
+        mainMap.setStreetView(collection.currentPlace)
+        $('#street-view').css({visibility:"visible"})
+      }else{
+        $('#street-view').css({visibility:"hidden"})
+      }
+      collection.streetView = !collection.streetView
+
     }
+
   }
 });
 
 const locationView = new Vue({
   el: '#location-list',
   data: {
-    locations: locations,
+    locations: collection.locations,
     visible: false
   },
   methods:{
@@ -60,7 +75,7 @@ const locationView = new Vue({
 const mymap = new Vue({
   el: '#map',
   data: {
-    places: places
+    places: collection.places
   },
   mounted: function(){
     this.init(this.places)

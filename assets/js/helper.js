@@ -8,8 +8,14 @@ const mainMap = {
   init(places) {
     this.map = new google.maps.Map(document.getElementById('map'), {
       scrollwheel: true,
-      zoom: 8
+      controls: false,
+      streetViewControl: false,
+      zoom: 8,
+      zoomControlOptions: {
+        position: google.maps.ControlPosition.RIGHT_CENTER
+      }
     });
+    this.panorama
     this.service = new google.maps.places.PlacesService(this.map);
     this.markers = []
     this.infoWindows = []
@@ -26,11 +32,14 @@ const mainMap = {
 
   setMarker(place) {
     var self = this
+    console.log(place);
+    
     var newLocation = {
       lat: place.geometry.location.lat(),
       lng: place.geometry.location.lng(),
       icon: place.icon,
-      name: place.formatted_address,
+      name: place.name,
+      realName: place.formatted_address,
       pictures: []
     }
     var photos = place.photos
@@ -90,6 +99,23 @@ const mainMap = {
   setCenter(coords,is_zoom){
     this.map.panTo(coords);
     if(is_zoom) this.map.setZoom(15);
+  },
+
+  setStreetView(position){
+    if(!position) {
+      position = { lat: collection.locations[0].lat, lng: collection.locations[0].lng}
+    }
+    this.panorama = new google.maps.StreetViewPanorama(
+      document.getElementById('street-view'),{
+        position: position,
+        POV: {
+          heading: 34,
+          pitch: 10
+        }
+      }
+    )
+
+    this.map.setStreetView(this.panorama)
   }
 
 }

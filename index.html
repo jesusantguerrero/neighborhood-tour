@@ -17,20 +17,10 @@
     <div class="menu"><i class="material-icons" @click="toggleMenu">menu</i></div>
     <div class="brand">Neighborhood Tour Application</div>
     <div class="menu">menu</div>
-
   </header>
-  <div id="map" @load="init"></div>
-  <div id="place-name">{{place}}</div>
-
-  <ul id="location-list" v-bind:class="visible ? 'visible' : ''">
-    <li v-for="location in locations">
-      <div class="location-image"><i class="material-icons">location_on</i></div>
-      <h2 class="location-name">{{location.name}}</h2>
-    </li>
-  </ul>
 
   <div id="search-info" class="search-info">
-    <button>Other</button>
+    <button @click="toggleStreetView" ><i class="material-icons">streetview</i></button>
     <button>Other</button>
     <select name="" id="select-search" @change="showElement">
       <option v-bind:data-lat="location.lat" v-bind:data-lng="location.lng" v-for="location in locations"> {{location.name}} </option>
@@ -40,16 +30,25 @@
     <button><i class="material-icons">info_outline</i></button>
   </div>
 
+  <div id="map" @load="init"></div>
+
+  <div id="street-view"> </div>
+
+  <ul id="location-list" v-bind:class="visible ? 'visible' : ''">
+    <li v-for="location in locations">
+      <div class="location-image"><i class="material-icons">location_on</i></div>
+      <h2 class="location-name">{{location.name}} - {{location.realName}}</h2>
+    </li>
+  </ul>
+
+ 
   <footer>
     <div class="menu"><small>Powered by Google Maps API</small></div>
     <div class="footer-section">Neighborhood Tour Api</div>
     <div class="menu"><small>Code and design By Jesus Guerrero</small></div>
   </footer>
 
-  <script
-  src="http://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
+  <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="./assets/js/lib/select2.full.min.js"></script>
   <script src="./assets/js/lib/vue.min.js"></script>
   <script src="./assets/js/helper.js"></script>
