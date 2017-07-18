@@ -15,7 +15,7 @@
 
   <header id="header">
     <div class="menu"><i class="material-icons" @click="toggleMenu">menu</i></div>
-    <div class="brand">Neighborhood Tour Application</div>
+    <div class="brand">{{appDetails.name}}</div>
     <div class="menu">menu</div>
   </header>
 
@@ -23,16 +23,19 @@
     <button @click="toggleStreetView" ><i class="material-icons">streetview</i></button>
     <button>Other</button>
     <select name="" id="select-search" @change="showElement">
-      <option v-bind:data-lat="location.lat" v-bind:data-lng="location.lng" v-for="location in locations"> {{location.name}} </option>
+      <option v-bind:data-lat="location.lat" v-bind:data-lng="location.lng" v-bind:data-id="location.id" v-for="location in locations"> {{location.name}} </option>
     </select>
     
-    <button type="button" class="btn btn-large btn-block btn-default"><i class="material-icons">burst_mode</i></button>
+    <button @click="showPictures"><i class="material-icons">burst_mode</i></button>
     <button><i class="material-icons">info_outline</i></button>
   </div>
 
   <div id="map" @load="init"></div>
 
   <div id="street-view"> </div>
+  <div id="place-image"> 
+    <img v-bind:src="currentPlace.pictures[0]" alt="">
+  </div>
 
   <ul id="location-list" v-bind:class="visible ? 'visible' : ''">
     <li v-for="location in locations">

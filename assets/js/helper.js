@@ -1,16 +1,19 @@
 var template = '<div class="imformation Window"><h2>%title%<h2></di>'
+var mykey = 'AIzaSyBxbo8jtHUlXtuOnG1wT-YbWtISWVACm4g'
+var root = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='
 
 const placeholders = {
   title: '%title%'
 }
 
 const mainMap = {
+
   init(places) {
     this.map = new google.maps.Map(document.getElementById('map'), {
       scrollwheel: true,
       controls: false,
       streetViewControl: false,
-      zoom: 8,
+      zoom: 13,
       zoomControlOptions: {
         position: google.maps.ControlPosition.RIGHT_CENTER
       }
@@ -20,6 +23,7 @@ const mainMap = {
     this.markers = []
     this.infoWindows = []
     window.mapBounds = new google.maps.LatLngBounds();
+    this.count = 0
 
     places.forEach(function (place) {
       mainMap.searchPlace(place)
@@ -33,8 +37,8 @@ const mainMap = {
   setMarker(place) {
     var self = this
     console.log(place);
-    
     var newLocation = {
+      id: this.count++,
       lat: place.geometry.location.lat(),
       lng: place.geometry.location.lng(),
       icon: place.icon,
@@ -47,10 +51,9 @@ const mainMap = {
 
     if (photos !== undefined) {
       photos.forEach(function (object) {
-        newLocation.pictures.push(object.getUrl)
+        newLocation.pictures.push(root + place.reference + '&key=' + mykey)
       }, this);
     }
-
     //  Information window
     var contentString = template.replace(placeholders.title, 'Hola Mundo')
     var informationWindow = new google.maps.InfoWindow({
