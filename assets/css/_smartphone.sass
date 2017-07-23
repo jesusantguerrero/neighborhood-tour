@@ -9,3 +9,37 @@
   footer
     height: 60px
     padding: 0 10px
+  
+  #location-list
+    top: 0
+    padding: 80px 10px
+    background: transparentize(#fff,.2)
+    z-index: 99
+    position: absolute
+    height: 100vh
+    +makeFlex(100vw,column,center,center)
+    visibility: hidden
+    animation: out-menu .5s
+
+    li
+      +makeFlex(100%,row,center,center)
+      cursor: pointer
+      margin: 10px
+      padding: 10px 5px
+      border-radius: 2px
+      transition: all ease .3s
+
+      &:hover
+        background: $primary-color
+        color: #fff
+
+    .location-image
+      width: 20%
+    .location-name
+      width: 80%
+    .material-icons
+      font-size: 70px
+    &.visible
+      visibility: visible
+      animation: enter-menu .5s
+  

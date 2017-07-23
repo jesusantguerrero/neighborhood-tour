@@ -16,7 +16,7 @@
   <header id="header">
     <div class="menu"><i class="material-icons" @click="toggleMenu">menu</i></div>
     <div class="brand">{{appDetails.name}}</div>
-    <div class="menu">menu</div>
+    <div class="menu"></div>
   </header>
 
   <div id="search-info" class="search-info">
@@ -40,7 +40,7 @@
   <ul id="location-list" v-bind:class="visible ? 'visible' : ''">
     <li v-for="location in locations">
       <div class="location-image"><i class="material-icons">location_on</i></div>
-      <h2 class="location-name">{{location.name}} - {{location.realName}}</h2>
+      <h2 class="location-name">{{location.name}}</h2>
     </li>
   </ul>
 
