@@ -34,7 +34,7 @@
 
   <div id="street-view"> </div>
   <div id="place-image"> 
-    <img v-bind:src="currentPlace.pictures[0]" alt="">
+    <img v-for="picture in currentPlace.pictures" v-bind:src="picture" alt="">
   </div>
 
   <ul id="location-list" v-bind:class="visible ? 'visible' : ''">

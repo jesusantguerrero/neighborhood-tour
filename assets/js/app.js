@@ -9,7 +9,8 @@ const collection = {
     name: 'Neighborhood Tour',
     shortName: 'Tour',
     largeName: 'Neighborhood Tour'
-  }
+  },
+  test: []
 }
 
 const header = new Vue({
@@ -46,13 +47,17 @@ const selectView = new Vue({
     locations: collection.locations
   },
   mounted: function(){
-    var select = $("#select-search").select2();
+    var select      = $("#select-search").select2()
+    var $placeImage = $('#place-image')
+    var attributes
+
     select.on('select2:select',function(e){
-      var attributes = e.params.data.element.attributes
-      var id  = attributes.getNamedItem('data-id').value 
-      var theLocation = collection.locations[id]
-      var latlng = {lat: theLocation.lat, lng: theLocation.lng}
-      collection.currentPos = latlng
+      attributes =            e.params.data.element.attributes
+      var id                  = attributes.getNamedItem('data-id').value
+      var theLocation         = collection.locations[id]
+      var latlng              = {lat: theLocation.lat, lng: theLocation.lng}
+      collection.currentPos   = latlng
+      $placeImage.html()
       placeImage.currentPlace = theLocation
       selectView.setMapCenter(collection.currentPos,true)
       if(collection.streetView) mainMap.setStreetView(collection.currentPos)
@@ -60,7 +65,6 @@ const selectView = new Vue({
   },
   methods:{
     showElement: function(){
-   
     },
     setMapCenter: function(coords,zoom){
       mymap.setCenter(coords,zoom)

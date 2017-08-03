@@ -25,6 +25,7 @@ const mainMap = {
     window.mapBounds = new google.maps.LatLngBounds();
     this.count = 0
 
+    
     places.forEach(function (place) {
       mainMap.searchPlace(place)
     }, this);
@@ -36,7 +37,7 @@ const mainMap = {
 
   setMarker(place) {
     var self = this
-    console.log(place);
+    // console.log(place);
     var newLocation = {
       id: this.count++,
       lat: place.geometry.location.lat(),
@@ -46,14 +47,22 @@ const mainMap = {
       realName: place.formatted_address,
       pictures: []
     }
-    var photos = place.photos
-    var bounds = window.mapBounds
 
-    if (photos !== undefined) {
-      photos.forEach(function (object) {
-        newLocation.pictures.push(root + place.reference + '&key=' + mykey)
-      }, this);
-    }
+    var bounds = window.mapBounds
+     mainMap.service.getDetails({
+      placeId: place.place_id},
+      function(result,status){
+        var photos = result.photos
+        if (photos !== undefined) {
+          photos.forEach(function (object) {
+          var image = object.getUrl({maxWidth: '500',maxHeight: '500'})
+          newLocation.pictures.push(image)
+          // console.log(image)
+          }, this);
+        }
+      })
+
+    
     //  Information window
     var contentString = template.replace(placeholders.title, 'Hola Mundo')
     var informationWindow = new google.maps.InfoWindow({
