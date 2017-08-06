@@ -50,6 +50,7 @@ const selectView = new Vue({
     var select      = $("#select-search").select2()
     var $placeImage = $('#place-image')
     var attributes
+    $('.select2 span').addClass('needsclick')
 
     select.on('select2:select',function(e){
       attributes =            e.params.data.element.attributes
