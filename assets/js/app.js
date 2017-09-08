@@ -1,7 +1,7 @@
 const collection = {
   currentPlace: {},
   currentPos: {},
-  places: ["Eiffel Tower","Big Ben","Google, Mountain View","Yankee Stadium","Wembley","Great Cayon"],
+  places: ["Eiffel Tower","Big Ben","Google, Mountain View","Yankee Stadium","Wembley"],
   locations: [],
   streetView: false,
   placeImage: false,
