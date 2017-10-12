@@ -18,6 +18,7 @@ const mainMap = {
         position: google.maps.ControlPosition.RIGHT_CENTER
       }
     });
+    
     this.panorama
     this.service = new google.maps.places.PlacesService(this.map);
     this.markers = []
@@ -28,7 +29,9 @@ const mainMap = {
     
     places.forEach(function (place) {
       mainMap.searchPlace(place)
-    }, this);
+    });
+   
+    selectView.triggerSearch()
   },
 
   callback(results, status) {
@@ -114,7 +117,7 @@ const mainMap = {
   },
 
   setStreetView(position){
-    if(!position) {
+    if (Object.keys(position).length == 0) {
       position = { lat: collection.locations[0].lat, lng: collection.locations[0].lng}
     }
     this.panorama = new google.maps.StreetViewPanorama(

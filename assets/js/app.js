@@ -46,12 +46,14 @@ const selectView = new Vue({
     places: collection.places,
     locations: collection.locations
   },
+
   mounted: function(){
     var select      = $("#select-search").select2()
     var $placeImage = $('#place-image')
     var attributes
+    
     $('.select2 span').addClass('needsclick')
-
+    
     select.on('select2:select',function(e){
       attributes =            e.params.data.element.attributes
       var id                  = attributes.getNamedItem('data-id').value
@@ -63,10 +65,13 @@ const selectView = new Vue({
       selectView.setMapCenter(collection.currentPos,true)
       if(collection.streetView) mainMap.setStreetView(collection.currentPos)
     })
+
   },
+
   methods:{
     showElement: function(){
     },
+
     setMapCenter: function(coords,zoom){
       mymap.setCenter(coords,zoom)
     },
@@ -80,8 +85,13 @@ const selectView = new Vue({
       }
       collection.streetView = !collection.streetView
     },
+
     showPictures: function(){
       placeImage.showPictures()
+    },
+
+    triggerSearch: function() {
+      $('#select-search').select2()
     }
   }
 });
@@ -93,7 +103,6 @@ const locationView = new Vue({
     visible: false
   },
   methods:{
-    
     toggle:function(){
      this.visible = !this.visible
     }
@@ -112,6 +121,7 @@ const mymap = new Vue({
     init: function(places){
       mainMap.init(places)
     },
+
     setCenter: function(coords,zoom){
       mainMap.setCenter(coords,zoom)
     }
@@ -123,6 +133,7 @@ const placeImage = new Vue({
   data: {
     currentPlace: collection.currentPlace
   },
+
   methods:{
     showPictures: function(){
       if(!collection.placeImage){

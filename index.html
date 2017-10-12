@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Neighborhood Tour Application</title>
   <link rel="stylesheet" href="./assets/css/lib/select2.min.css">
-  <link href='https:fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
   <link rel="stylesheet" href="./assets/css/main.css">
 </head>
 
@@ -19,39 +19,40 @@
     <div class="menu"></div>
   </header>
 
-  <div id="search-info" class="search-info">
-    <button @click="toggleStreetView" ><i class="material-icons">streetview</i></button>
-    <button>Other</button>
-    <select name="" id="select-search" @change="showElement">
+  <section class="wrapper">
+    <div id="search-info" class="search-info">
+      <button @click="toggleStreetView"><i class="material-icons">streetview</i></button>
+      <select name="" id="select-search" @change="showElement">
       <option v-bind:data-lat="location.lat" v-bind:data-lng="location.lng" v-bind:data-id="location.id" v-for="location in locations"> {{location.name}} </option>
     </select>
-    
-    <button @click="showPictures"><i class="material-icons">burst_mode</i></button>
-    <button><i class="material-icons">info_outline</i></button>
-  </div>
 
-  <div id="map" @load="init"></div>
+      <button @click="showPictures"><i class="material-icons">burst_mode</i></button>
+    </div>
 
-  <div id="street-view"> </div>
-  <div id="place-image"> 
-    <img v-for="picture in currentPlace.pictures" v-bind:src="picture" alt="">
-  </div>
+    <div id="map" @load="init"></div>
 
-  <ul id="location-list" v-bind:class="visible ? 'visible' : ''">
-    <li v-for="location in locations">
-      <div class="location-image"><i class="material-icons">location_on</i></div>
-      <h2 class="location-name">{{location.name}}</h2>
-    </li>
-  </ul>
+    <div id="street-view"> </div>
+    <div id="place-image">
+      <img v-for="picture in currentPlace.pictures" v-bind:src="picture" alt="">
+    </div>
 
- 
+    <ul id="location-list" v-bind:class="visible ? 'visible' : ''">
+      <li v-for="location in locations">
+        <div class="location-image"><i class="material-icons">location_on</i></div>
+        <h2 class="location-name">{{location.name}}</h2>
+      </li>
+    </ul>
+
+  </section>
+
   <footer>
     <div class="menu"><small>Powered by Google Maps API</small></div>
     <div class="footer-section">Neighborhood Tour Api</div>
     <div class="menu"><small>Code and design By Jesus Guerrero</small></div>
   </footer>
 
-  <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
   <script src="./assets/js/lib/select2.full.min.js"></script>
   <script src="./assets/js/lib/vue.min.js"></script>
   <script src="./assets/js/helper.js"></script>
