@@ -1,6 +1,5 @@
 var template = '<div class="imformation Window"><h2>%title%<h2></di>'
 var mykey = 'AIzaSyBxbo8jtHUlXtuOnG1wT-YbWtISWVACm4g'
-var root = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference='
 
 const placeholders = {
   title: '%title%'
